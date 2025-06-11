@@ -6,8 +6,8 @@ import { DailyRecipe } from "../components/DailyRecipe.jsx";
 import { RecipePreviewCard } from "../components/RecipePreviewCard.jsx";
 import { Navigation } from "../components/Navigation.jsx";
 import { Pagination } from "../components/Pagination.jsx";
-import { DailyRecipeSkeleton } from "../components/Placeholders/DailyRecipeSkeleton.jsx";
-import { RecipePreviewCardSkeleton } from "../components/Placeholders/RecipePreviewCardSkeleton.jsx";
+import { DailyRecipeSkeleton } from "../components/placeholders/DailyRecipeSkeleton.jsx";
+import { RecipePreviewCardSkeleton } from "../components/placeholders/RecipePreviewCardSkeleton.jsx";
 import { FilterControls } from "../components/FilterControls.jsx";
 
 const PAGE_SIZE = 21;
