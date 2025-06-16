@@ -29,7 +29,7 @@ export function FilterControls({
         )}
       </div>
       <div className="flex items-center space-x-2 w-full md:w-auto justify-end">
-        <span className="text-gray-600 hidden sm:inline">Сортувати:</span>
+        <span className="text-gray-600">Сортувати:</span>
         <select
           value={sortConfig?.field || 'created'}
           onChange={handleSortFieldChange}
