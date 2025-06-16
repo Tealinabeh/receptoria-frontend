@@ -29,16 +29,16 @@ export function FilterControls({
         )}
       </div>
       <div className="flex items-center space-x-2 w-full md:w-auto justify-end">
-        <span className="text-gray-600">Сортувати:</span>
+        <span className="text-gray-600 sm:inline">Сортувати:</span>
         <select
           value={sortConfig?.field || 'created'}
           onChange={handleSortFieldChange}
           className="p-2 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-orange-400"
         >
-          <option value="created">Даті</option>
-          <option value="averageRating">Оцінці</option>
-          <option value="timeToCook">Часу</option>
-          <option value="difficulty">Складності</option>
+          <option value="created">Дата</option>
+          <option value="averageRating">Оцінка</option>
+          <option value="timeToCook">Час</option>
+          <option value="difficulty">Складність</option>
         </select>
         <button onClick={toggleSortDirection} className="p-2 rounded-md hover:bg-gray-100" title="Змінити напрямок сортування">
           <span className="text-2xl font-bold">{sortConfig?.direction === 'DESC' ? '↓' : '↑'}</span>
