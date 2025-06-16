@@ -53,7 +53,8 @@ const navigationData = [
     },
 ];
 
-function NavLink({ to, children, isActive, isSpecial }) {
+
+function NavLink({ to, children, isActive, isSpecial, onClick }) {
     const specialActiveClasses = "text-red-500 font-bold underline";
     const defaultActiveClasses = "text-orange-500 font-bold underline";
     const inactiveClasses = "hover:text-orange-400";
@@ -62,29 +63,43 @@ function NavLink({ to, children, isActive, isSpecial }) {
     const finalClasses = isActive ? activeClasses : inactiveClasses;
 
     return (
-        <Link to={to} className={`transition-colors ${finalClasses}`}>
+        <Link to={to} className={`transition-colors ${finalClasses}`} onClick={onClick}>
             {children}
         </Link>
     );
 }
 
-export function Navigation() {
+export function Navigation({ onLinkClick }) {
     const [searchParams] = useSearchParams();
 
     const createLink = (key, value) => {
         const newParams = new URLSearchParams(searchParams);
-        if (newParams.get(key) === value) {
-            newParams.delete(key);
+
+        if (key === 'categories') {
+            const allCategories = newParams.getAll(key);
+            if (allCategories.includes(value)) {
+                const filteredCategories = allCategories.filter(c => c !== value);
+                newParams.delete(key);
+                filteredCategories.forEach(c => newParams.append(key, c));
+            } else {
+                newParams.append(key, value);
+            }
         } else {
-            newParams.set(key, value);
+            if (newParams.get(key) === value) {
+                newParams.delete(key);
+            } else {
+                newParams.set(key, value);
+            }
         }
+
         newParams.set('page', '1');
         return `/?${newParams.toString()}`;
     };
 
     return (
-        <nav className="border-dashed border-2 rounded-2xl p-4">
-            <ul className="font-bold text-2xl space-y-4">
+        <nav className="p-4 h-full overflow-y-auto md:border-dashed md:border-2 md:rounded-2xl md:h-auto md:overflow-y-visible">
+            <button onClick={onLinkClick} className="absolute top-2 right-4 text-3xl text-gray-400 hover:text-gray-700 md:hidden">×</button>
+            <ul className="font-bold text-2xl space-y-4 md:pt-0">
                 {navigationData.map((section) => {
                     const isSpecialSection = section.title === "Час / Складність:";
                     return (
@@ -97,8 +112,9 @@ export function Navigation() {
                                     <li key={item.value}>
                                         <NavLink
                                             to={createLink(section.queryKey, item.value)}
-                                            isActive={searchParams.get(section.queryKey) === item.value}
+                                            isActive={searchParams.getAll(section.queryKey).includes(item.value)}
                                             isSpecial={isSpecialSection}
+                                            onClick={onLinkClick}
                                         >
                                             {item.label}
                                         </NavLink>

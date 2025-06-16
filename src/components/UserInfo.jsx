@@ -19,7 +19,6 @@ export function UserInfo({ user, isOwner }) {
                     <div className="flex-grow">
                         <h2 className="text-3xl font-bold text-gray-800">{user.userName}</h2>
                         <p className="text-gray-500 mt-2">Про себе:</p>
-                        {/* ИЗМЕНЕНИЯ В СТРОКЕ НИЖЕ */}
                         <p className="mt-1 text-gray-700 bg-gray-50 p-2 rounded-md min-h-[60px] max-h-40 overflow-y-auto text-left break-words">
                             {user.bio || "Опис про себе ще не додано."}
                         </p>

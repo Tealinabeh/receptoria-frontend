@@ -10,7 +10,7 @@ export function RecipePreviewCard({ title, img, time, difficulty, tags, rating, 
   const creationDate = created ? new Date(created).toLocaleDateString('uk-UA') : '';
 
   return (
-    <div className="group relative flex flex-col w-auto max-w-96 rounded-xl overflow-hidden border-2 shadow-lg bg-white duration-500 hover:scale-105 hover:z-10 hover:shadow-slate-800">
+    <div className="group relative flex flex-col w-auto rounded-xl overflow-hidden border-2 shadow-lg bg-white duration-500 hover:scale-105 hover:z-10 hover:shadow-slate-800">
       <Link to={`/recipe/${id}`} className="absolute inset-0 z-20" />
       <img
         src={img}

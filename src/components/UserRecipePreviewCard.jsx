@@ -9,7 +9,7 @@ export function UserRecipePreviewCard({ id, title, img, timeToCook, difficulty, 
     const creationDate = created ? new Date(created).toLocaleDateString('uk-UA') : '';
 
     return (
-        <div className="group relative flex flex-col w-auto max-w-96 rounded-xl overflow-hidden border-2 shadow-lg bg-white duration-300 hover:scale-105 hover:shadow-xl">
+        <div className="group relative flex flex-col w-auto rounded-xl overflow-hidden border-2 shadow-lg bg-white duration-300 hover:scale-105 hover:shadow-xl">
             <Link to={`/recipe/${id}`} className="absolute inset-0 z-10" />
 
             <div className="relative h-52 w-full">
@@ -26,8 +26,8 @@ export function UserRecipePreviewCard({ id, title, img, timeToCook, difficulty, 
                 </div>
 
                 <div className="mt-auto pt-4">
-                    <div className='relative z-20 mt-auto pt-2'>
-                        <Link to={`/recipe/${id}`} className="w-full block text-center py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors font-medium">
+                    <div className='z-20 mt-auto pt-2'>
+                        <Link to={`/recipe/${id}`} className="w-full block text-center py-2 bg-orange-500 text-white rounded-lg group-hover:bg-red-700 transition-colors font-medium">
                             Дивитись рецепт
                         </Link>
                     </div>
