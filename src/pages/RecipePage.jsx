@@ -11,7 +11,6 @@ import { Plus, X } from 'lucide-react';
 import { MarqueeTitle } from '../components/MarqueeTitle';
 import { formatTime } from '../utils/formatTime';
 
-// ... (весь ваш GraphQL код остается без изменений) ...
 const GET_RECIPE_BY_ID = gql`
   query GetRecipeById($id: UUID!) {
     recipeById(id: $id) {
@@ -170,11 +169,7 @@ export default function RecipePage() {
                     </div>
                     {isOwner && (<Link to={`/recipe/${recipe.id}/edit`} className="ml-4 px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 flex-shrink-0">Редагувати</Link>)}
                 </div>
-
-                {/* --- ФИНАЛЬНЫЙ ИСПРАВЛЕННЫЙ БЛОК --- */}
                 <article className="flex flex-col md:flex-row justify-around items-center text-center bg-white p-6 rounded-lg shadow-sm mb-8 gap-6 md:gap-4">
-
-                    {/* Блок оценки (для мобильных - первый, для десктопа - второй) */}
                     <div className="flex flex-col items-center justify-center order-1 md:order-2">
                         <h2 className="text-lg font-semibold text-gray-500 mb-1">
                             {isOwner ? 'Оцінка' : 'Ваша оцінка'}
@@ -191,15 +186,11 @@ export default function RecipePage() {
                         )}
                         <p className="text-sm text-gray-400 mt-2">Середня: {parseFloat(recipe.averageRating).toFixed(1)}</p>
                     </div>
-
-                    {/* Обёртка для времени и сложности. На десктопе "исчезает" благодаря md:contents */}
                     <div className="flex flex-row justify-around w-full items-center order-2 md:contents">
-                        {/* Блок времени (для десктопа - первый) */}
                         <div className="md:order-1">
                             <h2 className="text-lg font-semibold text-gray-500">Час приготування</h2>
                             <p className="text-xl font-bold text-gray-700">{formatTime(recipe.timeToCook)}</p>
                         </div>
-                        {/* Блок сложности (для десктопа - третий) */}
                         <div className="md:order-3">
                             <h2 className="text-lg font-semibold text-gray-500">Складність</h2>
                             <div className="flex justify-center mt-1"><DifficultyBadge difficulty={recipe.difficulty} /></div>
@@ -236,8 +227,6 @@ export default function RecipePage() {
                         </div>
                     </div>
                 </article>
-
-                {/* Блок с датой и кнопкой (оставлен без изменений) */}
                 <div className="flex flex-col md:flex-row items-center justify-between mb-8 gap-4">
                     <div className="flex items-center space-x-4 text-gray-600 order-1 md:order-2">
                         <p className="font-medium">Дата створення:</p>
