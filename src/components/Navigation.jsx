@@ -67,9 +67,9 @@ function NavLink({ to, children, isActive, isSpecial, onClick }) {
             {children}
         </Link>
     );
-}
+} 
 
-export function Navigation({ onLinkClick }) {
+export function Navigation({ onCloseClick }) {
     const [searchParams] = useSearchParams();
 
     const createLink = (key, value) => {
@@ -97,8 +97,8 @@ export function Navigation({ onLinkClick }) {
     };
 
     return (
-        <nav className="p-4 h-full overflow-y-auto md:border-dashed md:border-2 md:rounded-2xl md:h-auto md:overflow-y-visible">
-            <button onClick={onLinkClick} className="absolute top-2 right-4 text-3xl text-gray-400 hover:text-gray-700 md:hidden">×</button>
+        <nav className="pb-24 p-4 h-full overflow-y-auto md:pb-0 md:border-dashed md:border-2 md:rounded-2xl md:h-auto md:overflow-y-visible">
+            <button onClick={onCloseClick} className="absolute top-2 right-4 text-3xl text-gray-400 hover:text-gray-700 md:hidden">×</button>
             <ul className="font-bold text-2xl space-y-4 md:pt-0">
                 {navigationData.map((section) => {
                     const isSpecialSection = section.title === "Час / Складність:";
@@ -114,7 +114,6 @@ export function Navigation({ onLinkClick }) {
                                             to={createLink(section.queryKey, item.value)}
                                             isActive={searchParams.getAll(section.queryKey).includes(item.value)}
                                             isSpecial={isSpecialSection}
-                                            onClick={onLinkClick}
                                         >
                                             {item.label}
                                         </NavLink>

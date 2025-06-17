@@ -87,10 +87,6 @@ export default function HomePage() {
     };
   }, [isNavOpen]);
 
-  useEffect(() => {
-    setIsNavOpen(false);
-  }, [searchParams]);
-
   const searchTerm = searchParams.get('query') || '';
   const sortConfig = {
     field: searchParams.get('sort') || 'created',

@@ -9,8 +9,9 @@ import { DifficultyBadge } from '../components/DifficultyBadge';
 import { StarRating } from '../components/StarRating';
 import { Plus, X } from 'lucide-react';
 import { MarqueeTitle } from '../components/MarqueeTitle';
-import { formatTime } from '../utils/formatTime'; 
+import { formatTime } from '../utils/formatTime';
 
+// ... (весь ваш GraphQL код остается без изменений) ...
 const GET_RECIPE_BY_ID = gql`
   query GetRecipeById($id: UUID!) {
     recipeById(id: $id) {
@@ -82,6 +83,7 @@ const GET_MY_RATING = gql`
         }
     }
 `;
+
 
 export default function RecipePage() {
     const { id } = useParams();
@@ -169,16 +171,14 @@ export default function RecipePage() {
                     {isOwner && (<Link to={`/recipe/${recipe.id}/edit`} className="ml-4 px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 flex-shrink-0">Редагувати</Link>)}
                 </div>
 
-                <article className="flex justify-around items-center text-center bg-white p-4 rounded-lg shadow-sm mb-8">
-                    <div>
-                        <h2 className="text-lg font-semibold text-gray-500">Час приготування</h2>
-                        <p className="text-xl font-bold text-gray-700">{formatTime(recipe.timeToCook)}</p>
-                    </div>
-                    <div className="flex flex-col items-center justify-center">
+                {/* --- ФИНАЛЬНЫЙ ИСПРАВЛЕННЫЙ БЛОК --- */}
+                <article className="flex flex-col md:flex-row justify-around items-center text-center bg-white p-6 rounded-lg shadow-sm mb-8 gap-6 md:gap-4">
+
+                    {/* Блок оценки (для мобильных - первый, для десктопа - второй) */}
+                    <div className="flex flex-col items-center justify-center order-1 md:order-2">
                         <h2 className="text-lg font-semibold text-gray-500 mb-1">
                             {isOwner ? 'Оцінка' : 'Ваша оцінка'}
                         </h2>
-
                         {!isOwner && (
                             <>
                                 {!myRatingLoading && (<StarRating key={initialUserRating} initialRating={initialUserRating} onRatingSubmit={handleRatingSubmit} />)}
@@ -189,13 +189,23 @@ export default function RecipePage() {
                                 )}
                             </>
                         )}
-
                         <p className="text-sm text-gray-400 mt-2">Середня: {parseFloat(recipe.averageRating).toFixed(1)}</p>
                     </div>
-                    <div>
-                        <h2 className="text-lg font-semibold text-gray-500">Складність</h2>
-                        <div className="flex justify-center mt-1"><DifficultyBadge difficulty={recipe.difficulty} /></div>
+
+                    {/* Обёртка для времени и сложности. На десктопе "исчезает" благодаря md:contents */}
+                    <div className="flex flex-row justify-around w-full items-center order-2 md:contents">
+                        {/* Блок времени (для десктопа - первый) */}
+                        <div className="md:order-1">
+                            <h2 className="text-lg font-semibold text-gray-500">Час приготування</h2>
+                            <p className="text-xl font-bold text-gray-700">{formatTime(recipe.timeToCook)}</p>
+                        </div>
+                        {/* Блок сложности (для десктопа - третий) */}
+                        <div className="md:order-3">
+                            <h2 className="text-lg font-semibold text-gray-500">Складність</h2>
+                            <div className="flex justify-center mt-1"><DifficultyBadge difficulty={recipe.difficulty} /></div>
+                        </div>
                     </div>
+
                 </article>
 
                 <article className="grid grid-cols-1 md:grid-cols-[2fr_3fr] gap-0 mb-8 rounded-lg shadow-lg overflow-hidden">
@@ -227,17 +237,26 @@ export default function RecipePage() {
                     </div>
                 </article>
 
-                <div className="flex items-center justify-between mb-8">
-                    <button onClick={handleToggleFavorite} className={`flex items-center space-x-2 px-4 py-2 rounded-lg text-white font-medium transition-colors ${isFavorite ? 'bg-red-500 hover:bg-red-600' : 'bg-green-500 hover:bg-green-600'}`}>
-                        {isFavorite ? <X size={18} /> : <Plus size={18} />}
-                        <span>Зберегти</span>
-                    </button>
-                    <div className="flex items-center space-x-4 text-gray-600">
+                {/* Блок с датой и кнопкой (оставлен без изменений) */}
+                <div className="flex flex-col md:flex-row items-center justify-between mb-8 gap-4">
+                    <div className="flex items-center space-x-4 text-gray-600 order-1 md:order-2">
                         <p className="font-medium">Дата створення:</p>
                         <p>{new Date(recipe.created).toLocaleDateString('uk-UA')}</p>
                     </div>
-                    <UserLink picture={recipe.author?.avatarUrl || "/User.png"} username={recipe.author?.userName} link={`/user/${recipe.author?.id}`} />
+                    <div className="flex items-center justify-between w-full md:w-auto md:justify-start md:gap-4 order-2 md:order-1">
+                        <button onClick={handleToggleFavorite} className={`flex items-center space-x-2 px-4 py-2 rounded-lg text-white font-medium transition-colors ${isFavorite ? 'bg-red-500 hover:bg-red-600' : 'bg-green-500 hover:bg-green-600'}`}>
+                            {isFavorite ? <X size={18} /> : <Plus size={18} />}
+                            <span>Зберегти</span>
+                        </button>
+                        <div className="md:hidden">
+                            <UserLink picture={recipe.author?.avatarUrl || "/User.png"} username={recipe.author?.userName} link={`/user/${recipe.author?.id}`} />
+                        </div>
+                    </div>
+                    <div className="hidden md:flex md:order-3">
+                        <UserLink picture={recipe.author?.avatarUrl || "/User.png"} username={recipe.author?.userName} link={`/user/${recipe.author?.id}`} />
+                    </div>
                 </div>
+
 
                 <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-8">
                     <aside className="lg:sticky top-24 self-start">
