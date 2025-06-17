@@ -15,9 +15,11 @@ const GET_RECIPE_OF_THE_DAY = gql`
   }
 `;
 
-export function DailyRecipeSection() {
+export function DailyRecipeSection({ onLoadComplete }) {
   const { data, loading, error } = useQuery(GET_RECIPE_OF_THE_DAY, {
     fetchPolicy: "cache-and-network",
+    onCompleted: onLoadComplete,
+    onError: onLoadComplete,
   });
 
   if (loading) {
@@ -25,7 +27,7 @@ export function DailyRecipeSection() {
   }
 
   if (error) {
-      console.error(error);
+    console.error(error);
     return null;
   }
 

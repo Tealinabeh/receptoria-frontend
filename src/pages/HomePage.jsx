@@ -6,7 +6,7 @@ import { RecipePreviewCard } from "../components/RecipePreviewCard.jsx";
 import { Navigation } from "../components/Navigation.jsx";
 import { Pagination } from "../components/Pagination.jsx";
 import { RecipePreviewCardSkeleton } from "../components/placeholders/RecipePreviewCardSkeleton.jsx";
-import { NavigationSkeleton } from "../components/placeholders/NavigationSkeleton.jsx"
+import { NavigationSkeleton } from "../components/placeholders/NavigationSkeleton.jsx";
 import { FilterControls } from "../components/FilterControls.jsx";
 import { DailyRecipeSection } from "../components/DailyRecipeSection.jsx";
 import { ErrorDisplay } from '../components/ErrorDisplay';
@@ -72,10 +72,10 @@ const buildQueryFilter = (searchParams) => {
   return filterClauses.length > 0 ? { and: filterClauses } : null;
 };
 
-
 export default function HomePage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const [isPageStructureLoading, setPageStructureLoading] = useState(true);
   const page = parseInt(searchParams.get('page') || '1', 10);
 
   useEffect(() => {
@@ -111,6 +111,16 @@ export default function HomePage() {
     variables: variables,
     fetchPolicy: "cache-and-network",
     notifyOnNetworkStatusChange: true,
+    onCompleted: () => {
+      if (isPageStructureLoading) {
+        setPageStructureLoading(false);
+      }
+    },
+    onError: () => {
+      if (isPageStructureLoading) {
+        setPageStructureLoading(false);
+      }
+    }
   });
 
   const handlePageChange = (newPage) => {
@@ -139,19 +149,18 @@ export default function HomePage() {
     setSearchParams(newParams);
   };
 
-   if (error) {
+  if (error && isPageStructureLoading) {
     return (
       <div>
         <Header />
-        <ErrorDisplay 
-          message={error?.message }
+        <ErrorDisplay
+          message={error?.message}
           onRetry={() => window.location.reload()}
         />
       </div>
     );
   }
 
-  const isLoading = loading && !data;
   const recipesToDisplay = data?.recipes?.items || [];
   const totalRecipes = data?.recipes?.totalCount || 0;
   const totalPages = Math.ceil(totalRecipes / PAGE_SIZE);
@@ -166,11 +175,9 @@ export default function HomePage() {
           aria-hidden="true"
         />
       )}
-
       <div className="px-4 pt-20 flex flex-col md:flex-row">
         <main className="px-2 md:px-4 pt-4 w-full md:w-3/4">
           <DailyRecipeSection />
-
           <div className="mt-8">
             <FilterControls
               title="Всі рецепти"
@@ -180,9 +187,9 @@ export default function HomePage() {
               onSearchChange={handleSearchChange}
             />
           </div>
-
           <div className="pt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-9 items-start">
-            {isLoading ? (
+            {/* Скелеты карточек зависят от `loading`, чтобы появляться при каждой фильтрации */}
+            {loading ? (
               [...Array(9)].map((_, index) => <RecipePreviewCardSkeleton key={index} />)
             ) : recipesToDisplay.length > 0 ? (
               recipesToDisplay.map((recipe) => (
@@ -208,7 +215,6 @@ export default function HomePage() {
               </p>
             )}
           </div>
-
           {recipesToDisplay.length > 0 && totalPages > 1 && (
             <div className="py-8 flex justify-center">
               <Pagination
@@ -226,10 +232,11 @@ export default function HomePage() {
           md:relative md:top-auto md:pt-4 md:right-auto md:h-auto md:w-1/4 md:translate-x-0 
           md:bg-transparent md:shadow-none md:z-auto
         `}>
-          {isLoading ? (
+          {/* Скелет навигации зависит от нашего нового состояния */}
+          {isPageStructureLoading ? (
             <NavigationSkeleton />
           ) : (
-            <Navigation onLinkClick={() => setIsNavOpen(false)} />
+            <Navigation onCloseClick={() => setIsNavOpen(false)} />
           )}
         </aside>
       </div>
