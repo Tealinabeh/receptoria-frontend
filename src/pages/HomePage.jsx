@@ -225,7 +225,7 @@ export default function HomePage() {
           md:relative md:top-auto md:pt-4 md:right-auto md:h-auto md:w-1/4 md:translate-x-0 
           md:bg-transparent md:shadow-none md:z-auto
         `}>
-          <Navigation onLinkClick={() => setIsNavOpen(false)} />
+          <Navigation onCloseClick={() => setIsNavOpen(false)} />
         </aside>
       </div>
       <button
