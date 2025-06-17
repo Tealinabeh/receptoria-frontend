@@ -97,7 +97,7 @@ export function Navigation({ onCloseClick }) {
     };
 
     return (
-        <nav className="pb-24 p-4 h-full overflow-y-auto md:pb-0 md:border-dashed md:border-2 md:rounded-2xl md:h-auto md:overflow-y-visible">
+        <nav className="pb-24 p-4 h-full overflow-y-auto md:pb-4 md:border-dashed md:border-2 md:rounded-2xl md:h-auto md:overflow-y-visible">
             <button onClick={onCloseClick} className="absolute top-2 right-4 text-3xl text-gray-400 hover:text-gray-700 md:hidden">×</button>
             <ul className="font-bold text-2xl space-y-4 md:pt-0">
                 {navigationData.map((section) => {
