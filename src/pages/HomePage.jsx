@@ -188,7 +188,6 @@ export default function HomePage() {
             />
           </div>
           <div className="pt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-9 items-start">
-            {/* Скелеты карточек зависят от `loading`, чтобы появляться при каждой фильтрации */}
             {loading ? (
               [...Array(9)].map((_, index) => <RecipePreviewCardSkeleton key={index} />)
             ) : recipesToDisplay.length > 0 ? (
@@ -232,7 +231,6 @@ export default function HomePage() {
           md:relative md:top-auto md:pt-4 md:right-auto md:h-auto md:w-1/4 md:translate-x-0 
           md:bg-transparent md:shadow-none md:z-auto
         `}>
-          {/* Скелет навигации зависит от нашего нового состояния */}
           {isPageStructureLoading ? (
             <NavigationSkeleton />
           ) : (
