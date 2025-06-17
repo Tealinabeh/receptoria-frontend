@@ -6,8 +6,10 @@ import { RecipePreviewCard } from "../components/RecipePreviewCard.jsx";
 import { Navigation } from "../components/Navigation.jsx";
 import { Pagination } from "../components/Pagination.jsx";
 import { RecipePreviewCardSkeleton } from "../components/placeholders/RecipePreviewCardSkeleton.jsx";
+import { NavigationSkeleton } from "../components/placeholders/NavigationSkeleton.jsx"
 import { FilterControls } from "../components/FilterControls.jsx";
 import { DailyRecipeSection } from "../components/DailyRecipeSection.jsx";
+import { ErrorDisplay } from '../components/ErrorDisplay';
 
 const PAGE_SIZE = 21;
 
@@ -77,7 +79,7 @@ export default function HomePage() {
   const page = parseInt(searchParams.get('page') || '1', 10);
 
   useEffect(() => {
-    if(isNavOpen) {
+    if (isNavOpen) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'auto';
@@ -137,15 +139,14 @@ export default function HomePage() {
     setSearchParams(newParams);
   };
 
-  if (error) {
+   if (error) {
     return (
       <div>
         <Header />
-        <div className="px-4 pt-20 flex justify-center items-center min-h-[calc(100vh-80px)]">
-            <p className="text-red-500 text-xl">
-            Помилка завантаження даних: {error?.message}
-            </p>
-        </div>
+        <ErrorDisplay 
+          message={error?.message }
+          onRetry={() => window.location.reload()}
+        />
       </div>
     );
   }
@@ -159,11 +160,11 @@ export default function HomePage() {
     <div>
       <Header />
       {isNavOpen && (
-          <div
-              onClick={() => setIsNavOpen(false)}
-              className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
-              aria-hidden="true"
-          />
+        <div
+          onClick={() => setIsNavOpen(false)}
+          className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
+          aria-hidden="true"
+        />
       )}
 
       <div className="px-4 pt-20 flex flex-col md:flex-row">
@@ -225,7 +226,11 @@ export default function HomePage() {
           md:relative md:top-auto md:pt-4 md:right-auto md:h-auto md:w-1/4 md:translate-x-0 
           md:bg-transparent md:shadow-none md:z-auto
         `}>
-          <Navigation onCloseClick={() => setIsNavOpen(false)} />
+          {isLoading ? (
+            <NavigationSkeleton />
+          ) : (
+            <Navigation onLinkClick={() => setIsNavOpen(false)} />
+          )}
         </aside>
       </div>
       <button

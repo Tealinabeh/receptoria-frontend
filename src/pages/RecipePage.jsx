@@ -10,6 +10,8 @@ import { StarRating } from '../components/StarRating';
 import { Plus, X } from 'lucide-react';
 import { MarqueeTitle } from '../components/MarqueeTitle';
 import { formatTime } from '../utils/formatTime';
+import { RecipePageSkeleton } from '../components/placeholders/RecipePageSkeleton';
+import { ErrorDisplay } from '../components/ErrorDisplay';
 
 const GET_RECIPE_BY_ID = gql`
   query GetRecipeById($id: UUID!) {
@@ -150,12 +152,22 @@ export default function RecipePage() {
         action({ variables: { recipeId: id } });
     };
 
-    if (!id) return <div><Header /><div className="text-center py-10">ID рецепту відсутній.</div></div>;
-    if (loading) return <div><Header /><div className="text-center py-10">Завантаження...</div></div>;
-    if (error) return <div><Header /><div className="text-center py-10 text-red-500">{error.message}</div></div>;
+    if (loading) return (
+        <>
+            <Header />
+            <RecipePageSkeleton />
+        </>
+    );
 
-    if (!recipe) return <div><Header /><div className="text-center py-10">Рецепт не знайдено.</div></div>;
-
+    if (error || !id || !recipe) return (
+        <div>
+            <Header />
+            <ErrorDisplay
+                message={error?.message || "Рецепт не знайдено."}
+                onRetry={() => window.location.reload()}
+            />
+        </div>
+    );
     const isOwner = authState.isAuthenticated && authState.user?.id === recipe.author?.id;
     const sortedSteps = recipe.steps?.slice().sort((a, b) => a.stepNumber - b.stepNumber);
 

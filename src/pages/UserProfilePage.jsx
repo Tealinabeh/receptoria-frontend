@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { Header } from '../components/Header';
 import { UserInfo } from '../components/UserInfo';
 import { RecipeGrid } from '../components/RecipeGrid';
+import { ErrorDisplay } from '../components/ErrorDisplay';
 
 const CREATED_PAGE_SIZE = 9;
 const FAVORITE_PAGE_SIZE = 20;
@@ -143,7 +144,15 @@ export default function UserProfilePage() {
   if (profileError) return <div><Header /><p className="text-center py-10 text-red-500">Помилка: {profileError.message}</p></div>;
 
   const user = profileData?.userById;
-  if (!user) return <div><Header /><p className="text-center py-10">Користувач не знайдений.</p></div>;
+  if (profileError || !user ) return (
+          <div>
+              <Header />
+              <ErrorDisplay
+                  message={profileError?.message || "Користувача не знайдено."}
+                  onRetry={() => window.location.reload()}
+              />
+          </div>
+      );
 
   const mapRecipeData = r => ({ ...r, img: r.imageUrl, userpicture: r.author.avatarUrl, username: r.author.userName, userId: r.author.id });
 
