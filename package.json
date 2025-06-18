@@ -12,6 +12,7 @@
   "dependencies": {
     "@apollo/client": "^3.13.8",
     "apollo-upload-client": "^18.0.1",
+    "framer-motion": "^12.18.1",
     "graphql": "^16.11.0",
     "graphql-upload": "^17.0.0",
     "lucide-react": "^0.513.0",

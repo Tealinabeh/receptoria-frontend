@@ -9,7 +9,7 @@ import { DifficultyBadge } from '../components/DifficultyBadge';
 import { StarRating } from '../components/StarRating';
 import { Plus, X } from 'lucide-react';
 import { MarqueeTitle } from '../components/MarqueeTitle';
-import { formatTime } from '../utils/formatTime';
+import { minutesToTime } from '../utils/timeUtils';
 import { RecipePageSkeleton } from '../components/placeholders/RecipePageSkeleton';
 import { ErrorDisplay } from '../components/ErrorDisplay';
 
@@ -201,7 +201,7 @@ export default function RecipePage() {
                     <div className="flex flex-row justify-around w-full items-center order-2 md:contents">
                         <div className="md:order-1">
                             <h2 className="text-lg font-semibold text-gray-500">Час приготування</h2>
-                            <p className="text-xl font-bold text-gray-700">{formatTime(recipe.timeToCook)}</p>
+                            <p className="text-xl font-bold text-gray-700">{minutesToTime(recipe.timeToCook, true)}</p>
                         </div>
                         <div className="md:order-3">
                             <h2 className="text-lg font-semibold text-gray-500">Складність</h2>
