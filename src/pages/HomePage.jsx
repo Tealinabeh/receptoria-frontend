@@ -152,7 +152,6 @@ export default function HomePage() {
   if (error && isPageStructureLoading) {
     return (
       <div>
-        <Header />
         <ErrorDisplay
           message={error?.message}
           onRetry={() => window.location.reload()}
@@ -167,7 +166,6 @@ export default function HomePage() {
 
   return (
     <div>
-      <Header />
       {isNavOpen && (
         <div
           onClick={() => setIsNavOpen(false)}

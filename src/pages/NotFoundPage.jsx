@@ -4,7 +4,6 @@ import { Header } from '../components/Header';
 export default function NotFoundPage() {
     return (
         <div>
-            <Header />
             <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 pt-16 pb-7 px-4 sm:px-6 lg:px-8">
                 <div className="max-w-md w-full space-y-8 text-center">
                     <div>

@@ -154,14 +154,13 @@ export default function RecipePage() {
 
     if (loading) return (
         <>
-            <Header />
             <RecipePageSkeleton />
         </>
     );
 
     if (error || !id || !recipe) return (
         <div>
-            <Header />
+            
             <ErrorDisplay
                 message={error?.message || "Рецепт не знайдено."}
                 onRetry={() => window.location.reload()}
@@ -173,7 +172,6 @@ export default function RecipePage() {
 
     return (
         <div className="bg-gray-100 min-h-screen pt-20 pb-10">
-            <Header />
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center mb-6">
                     <div className="flex-grow group">

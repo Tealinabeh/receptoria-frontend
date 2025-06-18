@@ -107,11 +107,10 @@ export default function ProfileEditPage() {
         updateProfile({ variables: { input } });
     };
 
-    if (queryLoading) return <div><Header /><p className="text-center py-10">Завантаження даних профілю...</p></div>;
+    if (queryLoading) return <p className="text-center py-10">Завантаження даних профілю...</p>;
 
     return (
         <div className="bg-gray-50">
-            <Header />
             <div className="max-w-2xl mx-auto py-24 px-4">
                 <h1 className="text-3xl font-bold text-center text-orange-600 mb-8">Редагування профілю</h1>
                 <form onSubmit={handleSubmit} className="space-y-6 bg-white p-8 rounded-xl shadow-lg">

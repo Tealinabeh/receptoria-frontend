@@ -37,7 +37,6 @@ export default function RecipeBuilderPage() {
   if (!authState.isAuthenticated) {
     return (
       <div className="bg-gray-100 min-h-screen pt-16 pb-7">
-        <Header />
         <div className="max-w-6xl mx-auto px-6 pt-8 text-center">
           <h1 className="text-2xl font-bold mb-4">Доступ обмежено</h1>
           <p className="text-lg">Для створення рецепту необхідно <Link to="/login" state={{ from: "/builder" }} className="text-orange-500 hover:underline">увійти</Link> в систему.</p>
@@ -48,7 +47,6 @@ export default function RecipeBuilderPage() {
 
   return (
     <div className="bg-gray-50">
-      <Header />
       <div className="translate-y-10">
         <div className="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
           <h1 className="text-3xl font-bold text-center text-orange-600 mb-10">

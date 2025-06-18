@@ -50,7 +50,6 @@ export default function LoginPage() {
 
   return (
     <div>
-      <Header />
       <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 pt-24 pb-12 px-4 sm:px-6 lg:px-8">
         <div className="bg-white p-8 sm:p-10 md:p-12 rounded-xl shadow-2xl w-full max-w-md">
           <h2 className="text-3xl sm:text-4xl font-bold text-center text-orange-500 mb-8">Увійти до акаунту</h2>

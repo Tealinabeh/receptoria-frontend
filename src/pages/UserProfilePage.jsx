@@ -140,13 +140,11 @@ export default function UserProfilePage() {
 
   const isLoading = profileLoading || createdLoading || (isOwner && favoritesLoading);
 
-  if (isLoading) return <div><Header /><p className="text-center py-10">Завантаження профілю...</p></div>;
-  if (profileError) return <div><Header /><p className="text-center py-10 text-red-500">Помилка: {profileError.message}</p></div>;
+  if (isLoading) return <p className="text-center py-10">Завантаження профілю...</p>;
 
   const user = profileData?.userById;
   if (profileError || !user ) return (
           <div>
-              <Header />
               <ErrorDisplay
                   message={profileError?.message || "Користувача не знайдено."}
                   onRetry={() => window.location.reload()}
@@ -164,7 +162,6 @@ export default function UserProfilePage() {
 
   return (
     <div className="bg-gray-100 min-h-screen">
-      <Header />
       <main className="max-w-7xl mx-auto py-24 px-4">
         <UserInfo key={user.id} user={user} isOwner={isOwner} />
         {isOwner && (

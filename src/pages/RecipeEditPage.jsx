@@ -87,16 +87,15 @@ export default function RecipeEditPage() {
         deleteRecipe({ variables: { recipeId: id } });
     };
 
-    if (queryLoading) return <div><Header /><p className="text-center py-20">Завантаження рецепту...</p></div>;
-    if (queryError) return <div><Header /><p className="text-center py-20 text-red-500">Помилка: {queryError.message}</p></div>;
+    if (queryLoading) return <div><p className="text-center py-20">Завантаження рецепту...</p></div>;
+    if (queryError) return <div><p className="text-center py-20 text-red-500">Помилка: {queryError.message}</p></div>;
 
     const recipe = data?.recipeById;
-    if (!recipe) return <div><Header /><p className="text-center py-20">Рецепт не знайдено.</p></div>;
+    if (!recipe) return <div><p className="text-center py-20">Рецепт не знайдено.</p></div>;
 
     if (!authState.isAuthenticated || authState.user?.id !== recipe.author.id) {
         return (
             <div>
-                <Header />
                 <div className="max-w-6xl mx-auto px-6 pt-20 text-center">
                     <h1 className="text-2xl font-bold mb-4">Доступ заборонено</h1>
                     <p>У вас немає прав на редагування цього рецепту.</p>
