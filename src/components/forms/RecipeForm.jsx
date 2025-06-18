@@ -91,7 +91,7 @@ export function RecipeForm({ initialData, onSubmit, isLoading, serverError, succ
         event.preventDefault();
         setFormError("");
 
-        if (!formState.title.trim() || !formState.description.trim()) return setFormError("Назва та опис рецепту є обов'язковими.");
+        if (!formState.title.trim()) return setFormError("Назва рецепту є обов'язковими полем.");
         if (formState.ingredients.some(ing => !ing.text.trim()) || formState.ingredients.length === 0) return setFormError("Додайте хоча б один інгредієнт і заповніть усі поля.");
         if (formState.steps.some(step => !step.description.trim()) || formState.steps.length === 0) return setFormError("Додайте хоча б один крок і заповніть усі описи.");
 
@@ -141,7 +141,7 @@ export function RecipeForm({ initialData, onSubmit, isLoading, serverError, succ
                 <input type="text" id="title" value={formState.title} onChange={handleChange} className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500" />
             </div>
             <div>
-                <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">Короткий опис <span className="text-red-500">*</span></label>
+                <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">Короткий опис</label>
                 <textarea id="description" value={formState.description} onChange={handleChange} rows="3" className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500" />
             </div>
             <div className="flex flex-col items-center space-y-3">
