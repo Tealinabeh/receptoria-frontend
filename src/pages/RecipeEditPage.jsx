@@ -17,6 +17,7 @@ const GET_RECIPE_FOR_EDIT = gql`
       steps {
         description
         imageUrl
+        stepNumber
       }
       timeToCook
       difficulty
@@ -77,14 +78,10 @@ export default function RecipeEditPage() {
     });
 
     const handleSubmit = (formData) => {
-        const cleanedSteps = formData.steps.map(step => {
-            if (!step.image) delete step.image;
-            return step;
-        });
-
-        const input = { recipeId: id, ...formData, steps: cleanedSteps };
+        const input = { recipeId: id, ...formData };
         updateRecipe({ variables: { input } });
     };
+
 
     const handleDeleteConfirm = () => {
         deleteRecipe({ variables: { recipeId: id } });

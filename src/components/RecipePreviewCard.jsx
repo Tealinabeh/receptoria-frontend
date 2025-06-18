@@ -15,7 +15,7 @@ export function RecipePreviewCard({ title, img, time, difficulty, tags, rating, 
       <img
         src={img}
         alt={title}
-        className="h-50 w-full object-cover"
+        className="h-50 max-h-96 w-full object-cover"
       />
 
       <main className="p-4 flex flex-col flex-grow">

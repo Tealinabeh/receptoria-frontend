@@ -7,17 +7,29 @@ const DIFFICULTY_LEVELS = [{ value: 1, label: "Легко" }, { value: 2, label:
 let nextId = 0;
 const generateId = () => (nextId++).toString();
 
-const getInitialState = (initialData) => ({
-    title: initialData?.title || "",
-    description: initialData?.description || "",
-    mainImageFile: null,
-    mainImagePreview: initialData?.imageUrl || DEFAULT_RECIPE_IMAGE_PREVIEW,
-    ingredients: initialData?.ingredients?.map(text => ({ id: generateId(), text })) || [{ id: generateId(), text: "" }],
-    steps: initialData?.steps?.map(step => ({ id: generateId(), description: step.description, imageFile: null, imagePreview: step.imageUrl || DEFAULT_RECIPE_IMAGE_PREVIEW })) || [{ id: generateId(), description: "", imageFile: null, imagePreview: DEFAULT_RECIPE_IMAGE_PREVIEW }],
-    categories: initialData?.categories?.map(text => ({ id: generateId(), text })) || [{ id: generateId(), text: "" }],
-    timeToCook: initialData?.timeToCook || "",
-    difficulty: initialData?.difficulty || 1,
-});
+const getInitialState = (initialData) => {
+    const sortedSteps = initialData?.steps
+        ? [...initialData.steps].sort((a, b) => a.stepNumber - b.stepNumber)
+        : [];
+
+    return {
+        title: initialData?.title || "",
+        description: initialData?.description || "",
+        mainImageFile: null,
+        mainImagePreview: initialData?.imageUrl || DEFAULT_RECIPE_IMAGE_PREVIEW,
+        ingredients: initialData?.ingredients?.map(text => ({ id: generateId(), text })) || [{ id: generateId(), text: "" }],
+        steps: sortedSteps.map(step => ({
+            id: generateId(),
+            description: step.description,
+            imageFile: null,
+            imagePreview: step.imageUrl || DEFAULT_RECIPE_IMAGE_PREVIEW,
+            existingImageUrl: step.imageUrl
+        })) || [{ id: generateId(), description: "", imageFile: null, imagePreview: DEFAULT_RECIPE_IMAGE_PREVIEW, existingImageUrl: null }],
+        categories: initialData?.categories?.map(text => ({ id: generateId(), text })) || [{ id: generateId(), text: "" }],
+        timeToCook: initialData?.timeToCook || "",
+        difficulty: initialData?.difficulty || 1,
+    };
+};
 
 
 export function RecipeForm({ initialData, onSubmit, isLoading, serverError, successMessage, submitButtonText }) {
@@ -56,7 +68,7 @@ export function RecipeForm({ initialData, onSubmit, isLoading, serverError, succ
         event.preventDefault();
         setFormError("");
 
-        if (!formState.title.trim() || !formState.description.trim()) return setFormError("Назва та опис рецепту є обов'язковими.");
+        if (!formState.title.trim()) return setFormError("Рецепт має бути названо.");
         if (formState.ingredients.some(ing => !ing.text.trim()) || formState.ingredients.length === 0) return setFormError("Додайте хоча б один інгредієнт і заповніть усі поля.");
         if (formState.steps.some(step => !step.description.trim()) || formState.steps.length === 0) return setFormError("Додайте хоча б один крок і заповніть усі описи.");
 
@@ -66,13 +78,31 @@ export function RecipeForm({ initialData, onSubmit, isLoading, serverError, succ
         const submissionData = {
             title: formState.title.trim(),
             description: formState.description.trim(),
-            image: formState.mainImageFile,
-            timeToCook: time,
+            timeToCook: parseInt(formState.timeToCook, 10) || 0,
             difficulty: parseInt(formState.difficulty, 10),
             ingredients: formState.ingredients.map(ing => ing.text.trim()).filter(Boolean),
             categories: formState.categories.map(cat => cat.text.trim()).filter(Boolean),
-            steps: formState.steps.map(step => ({ description: step.description.trim(), image: step.imageFile })),
+
+            steps: formState.steps.map((step, index) => {
+                const stepInput = {
+                    stepNumber: index + 1, 
+                    description: step.description.trim(),
+                    removeImage: false 
+                };
+                if (step.imageFile) {
+                    stepInput.image = step.imageFile;
+                }
+                else if (!step.existingImageUrl) {
+                    stepInput.removeImage = true;
+                }
+
+                return stepInput;
+            }),
         };
+
+        if (formState.mainImageFile) {
+            submissionData.image = formState.mainImageFile;
+        }
 
         onSubmit(submissionData);
     };
@@ -86,7 +116,7 @@ export function RecipeForm({ initialData, onSubmit, isLoading, serverError, succ
                 <input type="text" id="title" value={formState.title} onChange={handleChange} className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500" />
             </div>
             <div>
-                <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">Короткий опис <span className="text-red-500">*</span></label>
+                <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">Короткий опис </label>
                 <textarea id="description" value={formState.description} onChange={handleChange} rows="3" className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500" />
             </div>
             <div className="flex flex-col items-center space-y-3">

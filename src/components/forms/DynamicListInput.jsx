@@ -1,5 +1,6 @@
-let nextId = 0;
-const generateId = () => (nextId++).toString();
+import { useRef } from 'react';
+
+
 
 export function DynamicListInput({
   label,
@@ -8,6 +9,9 @@ export function DynamicListInput({
   placeholder,
   required = false
 }) {
+  const nextId = useRef(items.length);
+  const generateId = () => (nextId.current++).toString();
+
   const handleItemChange = (id, text) => {
     setItems(items.map((item) => (item.id === id ? { ...item, text } : item)));
   };

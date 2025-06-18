@@ -213,13 +213,15 @@ export default function RecipePage() {
 
                 <article className="grid grid-cols-1 md:grid-cols-[2fr_3fr] gap-0 mb-8 rounded-lg shadow-lg overflow-hidden">
                     <div className="relative w-full aspect-w-1 aspect-h-1">
-                        <img src={recipe.imageUrl || "/fallback-preview.jpeg"} alt={recipe.title} className="w-full h-full object-cover" />
+                        <img src={recipe.imageUrl || "/fallback-preview.jpeg"} alt={recipe.title} className="w-full max-h-[29rem] h-full object-cover" />
                     </div>
                     <div className="bg-white p-6 flex flex-col">
                         <h2 className="text-2xl text-center font-semibold text-orange-400 mb-4 border-b pb-2">Опис страви</h2>
-                        <p className="text-gray-600 leading-relaxed flex-grow">
-                            {recipe.description || "Опис не додано."}
-                        </p>
+                        <div className="flex-grow max-h-64 overflow-y-auto pr-2 mb-4">
+                            <p className="text-gray-600 leading-relaxed">
+                                {recipe.description || "Опис не додано."}
+                            </p>
+                        </div>
                         <div className="mt-auto pt-4 border-t">
                             <h3 className="text-lg font-semibold text-orange-400 mb-3 text-center">Теги</h3>
                             <div className="flex flex-wrap gap-2 justify-center">

@@ -23,6 +23,10 @@ export function RecipeStepsInput({ steps, setSteps, setFormError }) {
             setFormError("");
         }
     };
+    const handleImageRemove = (id) => {
+        setSteps(steps.map((step) => step.id === id ? { ...step, imageFile: null, imagePreview: DEFAULT_IMAGE_PREVIEW, existingImageUrl: null } : step));
+    };
+
 
     const addStep = () => {
         setSteps([...steps, { id: generateId(), description: "", imageFile: null, imagePreview: DEFAULT_IMAGE_PREVIEW }]);
@@ -68,6 +72,15 @@ export function RecipeStepsInput({ steps, setSteps, setFormError }) {
                             onChange={(e) => handleImageChange(step.id, e)}
                             className="hidden"
                         />
+                        {(step.imageFile || step.existingImageUrl) && (
+                            <button
+                                type="button"
+                                onClick={() => handleImageRemove(step.id)}
+                                className="px-4 py-2 bg-red-100 text-red-600 rounded-md hover:bg-red-200 transition text-xs font-medium"
+                            >
+                                Видалити фото
+                            </button>
+                        )}
                     </div>
                     {steps.length > 1 && (
                         <button
