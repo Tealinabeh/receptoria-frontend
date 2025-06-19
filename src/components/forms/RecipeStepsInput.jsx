@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowUp, ArrowDown } from 'lucide-react';
-import { OptimizedPicture } from "../utils/OptimizedPicture.jsx";
+import { OptimizedPicture } from "../../utils/OptimizedPicture.jsx";
 
 let nextId = 0;
 const generateId = () => (nextId++).toString();

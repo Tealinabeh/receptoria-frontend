@@ -3,7 +3,7 @@ import { DynamicListInput } from './DynamicListInput';
 import { RecipeStepsInput } from './RecipeStepsInput';
 import { TimeInput } from './TimeInput';
 import { minutesToTime, timeToMinutes } from '../../utils/timeUtils';
-import { OptimizedPicture } from "../utils/OptimizedPicture.jsx";
+import { OptimizedPicture } from "../../utils/OptimizedPicture.jsx";
 
 const DIFFICULTY_LEVELS = [{ value: 1, label: "Легко" }, { value: 2, label: "Середньо" }, { value: 3, label: "Складно" }];
 let nextId = 0;
