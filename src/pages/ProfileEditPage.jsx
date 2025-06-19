@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { gql, useQuery, useMutation } from '@apollo/client';
 import { useAuth } from '../context/AuthContext';
-import { Header } from '../components/Header';
 import { PasswordInput } from '../components/forms/PasswordInput'; 
 
 export default function ProfileEditPage() {

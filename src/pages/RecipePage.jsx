@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { gql, useQuery, useMutation } from '@apollo/client';
 import { useAuth } from '../context/AuthContext';
-import { Header } from "../components/Header";
 import { UserLink } from "../components/UserLink";
 import { RecipeStep } from "../components/RecipeStep";
 import { DifficultyBadge } from '../components/DifficultyBadge';
