@@ -1,13 +1,14 @@
 import { gql, useQuery } from "@apollo/client";
 import { DailyRecipe } from "./DailyRecipe.jsx";
 import { DailyRecipeSkeleton } from "./placeholders/DailyRecipeSkeleton.jsx";
+import { useBreakpoint } from '../hooks/useBreakpoint';
 
 const GET_RECIPE_OF_THE_DAY = gql`
-  query GetDailyRecipe {
+  query GetDailyRecipe($imageWidth: Int!) {
     dailyRecipe {
       id
       title
-      imageUrl(width: 1200)
+      imageUrl(width: $imageWidth)
       timeToCook
       averageRating
       difficulty
@@ -16,7 +17,11 @@ const GET_RECIPE_OF_THE_DAY = gql`
 `;
 
 export function DailyRecipeSection({ onLoadComplete }) {
+  const isDesktop = useBreakpoint(768); 
+  const desiredImageWidth = isDesktop ? 1200 : 600;
+
   const { data, loading, error } = useQuery(GET_RECIPE_OF_THE_DAY, {
+    variables: { imageWidth: desiredImageWidth },
     fetchPolicy: "cache-and-network",
     onCompleted: onLoadComplete,
     onError: onLoadComplete,
