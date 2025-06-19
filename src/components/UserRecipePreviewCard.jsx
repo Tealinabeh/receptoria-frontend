@@ -4,6 +4,7 @@ import { Timer } from "./Timer";
 import { Rating } from "./Rating";
 import { UserLink } from "./UserLink";
 import { MarqueeTitle } from './MarqueeTitle';
+import { OptimizedPicture } from "../utils/OptimizedPicture.jsx";
 
 export function UserRecipePreviewCard({ id, title, img, timeToCook, difficulty, averageRating, author, created, searchTerm }) {
     const creationDate = created ? new Date(created).toLocaleDateString('uk-UA') : '';
@@ -13,7 +14,7 @@ export function UserRecipePreviewCard({ id, title, img, timeToCook, difficulty, 
             <Link to={`/recipe/${id}`} className="absolute inset-0 z-10" />
 
             <div className="relative h-52 w-full">
-                <img src={img || '/fallback-preview.jpeg'} alt={title} className="w-full h-full object-cover" />
+                <OptimizedPicture src={img} alt={title} className="w-full h-full object-cover" />
             </div>
 
             <div className="p-4 flex flex-col flex-grow">

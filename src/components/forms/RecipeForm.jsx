@@ -3,6 +3,7 @@ import { DynamicListInput } from './DynamicListInput';
 import { RecipeStepsInput } from './RecipeStepsInput';
 import { TimeInput } from './TimeInput';
 import { minutesToTime, timeToMinutes } from '../../utils/timeUtils';
+import { OptimizedPicture } from "../utils/OptimizedPicture.jsx";
 
 const DIFFICULTY_LEVELS = [{ value: 1, label: "Легко" }, { value: 2, label: "Середньо" }, { value: 3, label: "Складно" }];
 let nextId = 0;
@@ -148,7 +149,7 @@ export function RecipeForm({ initialData, onSubmit, isLoading, serverError, succ
                 <label className="block text-sm font-medium text-gray-700 self-start">Головне зображення</label>
                 <div className="w-full sm:w-2/3 md:w-1/2 h-64 rounded-lg overflow-hidden bg-gray-200 flex items-center justify-center border-2 border-dashed border-gray-300">
                     {hasMainImage ? (
-                        <img src={formState.mainImagePreview} alt="Головне зображення" className="object-cover w-full h-full" />
+                        <OptimizedPicture src={formState.mainImagePreview} alt="Головне зображення" className="object-cover w-full h-full" />
                     ) : (
                         <p className="text-gray-400">Немає зображення</p>
                     )}

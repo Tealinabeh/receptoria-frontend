@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { DifficultyBadge } from "./DifficultyBadge";
+import { OptimizedPicture } from "../utils/OptimizedPicture.jsx";
 import { Timer } from "./Timer";
 import { TagsList } from "./TagsList";
 import { Rating } from "./Rating";
@@ -12,7 +13,7 @@ export function RecipePreviewCard({ title, img, time, difficulty, tags, rating, 
   return (
     <div className="group relative flex flex-col w-auto rounded-xl overflow-hidden border-2 shadow-lg bg-white duration-500 hover:scale-105 hover:z-10 hover:shadow-slate-800">
       <Link to={`/recipe/${id}`} className="absolute inset-0 z-20" />
-      <img
+      <OptimizedPicture
         src={img}
         alt={title}
         className="h-50 max-h-96 w-full object-cover"

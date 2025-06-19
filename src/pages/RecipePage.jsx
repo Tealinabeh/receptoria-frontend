@@ -19,11 +19,11 @@ const GET_RECIPE_BY_ID = gql`
       id
       title
       description
-      imageUrl
+      imageUrl(width: 600)
       ingredients
       steps {
         description
-        imageUrl
+        imageUrl(width: 400)
         stepNumber
       }
       timeToCook
@@ -34,7 +34,7 @@ const GET_RECIPE_BY_ID = gql`
       author {
         id
         userName
-        avatarUrl
+        avatarUrl(width: 200)
       }
     }
   }

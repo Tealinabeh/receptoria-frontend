@@ -1,6 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowUp, ArrowDown } from 'lucide-react';
+import { OptimizedPicture } from "../utils/OptimizedPicture.jsx";
 
 let nextId = 0;
 const generateId = () => (nextId++).toString();
@@ -71,7 +72,7 @@ export function RecipeStepsInput({ steps, setSteps, setFormError, moveStep }) {
                                 {hasImage ? (
                                     <div className="flex flex-col items-center space-y-2">
                                         <div className="w-full sm:w-2/3 md:w-1/2 h-48 rounded-lg overflow-hidden bg-gray-200 flex items-center justify-center border border-gray-300">
-                                            <img
+                                            <OptimizedPicture
                                                 src={step.imagePreview || step.existingImageUrl}
                                                 alt={`Крок ${index + 1}`}
                                                 className="object-contain w-full h-full"

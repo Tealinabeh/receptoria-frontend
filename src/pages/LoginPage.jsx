@@ -9,7 +9,7 @@ const LOGIN_MUTATION = gql`
   mutation LoginUser($input: LoginUserInput!) {
     loginUser(input: $input) {
       token
-      user { id email userName avatarUrl }
+      user { id email userName avatarUrl(width: 200) }
     }
   }
 `;

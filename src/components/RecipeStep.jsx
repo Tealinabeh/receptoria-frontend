@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { OptimizedPicture } from "../utils/OptimizedPicture.jsx";
 
 export function RecipeStep({ number, description, image }) {
     const isEven = number % 2 === 0;
@@ -36,7 +37,7 @@ export function RecipeStep({ number, description, image }) {
             </article>
             {image && (
                 <div className={`border-t pt-4 mt-4 text-center ${completed ? 'border-orange-400' : 'border-gray-500'}`}>
-                    <img src={image} alt={`Крок ${number}`} className="mx-auto max-h-52 object-contain rounded-md" />
+                    <OptimizedPicture src={image} alt={`Крок ${number}`} className="mx-auto max-h-52 object-contain rounded-md" />
                 </div>
             )}
         </div>

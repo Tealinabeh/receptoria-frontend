@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { OptimizedPicture } from "../utils/OptimizedPicture.jsx";
 
 export function UserInfo({ user, isOwner }) {
     const registrationDate = user.registrationDate
@@ -9,7 +10,7 @@ export function UserInfo({ user, isOwner }) {
 
     return (
         <div className="bg-white p-6 rounded-lg shadow-md flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-6">
-            <img
+            <OptimizedPicture
                 src={avatarSrc}
                 alt="Аватар користувача"
                 className="w-32 h-32 rounded-full object-cover border-4 border-orange-400 flex-shrink-0"

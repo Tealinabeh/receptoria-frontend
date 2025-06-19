@@ -1,7 +1,6 @@
 import { useMemo, useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { gql, useQuery } from "@apollo/client";
-import { Header } from "../components/Header.jsx";
 import { RecipePreviewCard } from "../components/RecipePreviewCard.jsx";
 import { Navigation } from "../components/Navigation.jsx";
 import { Pagination } from "../components/Pagination.jsx";
@@ -20,7 +19,7 @@ const GET_RECIPES = gql`
         id
         title
         difficulty
-        imageUrl
+        imageUrl(width: 400)
         timeToCook
         categories
         averageRating
@@ -28,7 +27,7 @@ const GET_RECIPES = gql`
         author {
           id
           userName
-          avatarUrl
+          avatarUrl(width: 200)
         }
       }
       totalCount

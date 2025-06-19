@@ -26,7 +26,7 @@ export default function ProfileEditPage() {
 
     const { loading: queryLoading } = useQuery(gql`
       query GetMe {
-        me { id userName email bio avatarUrl }
+        me { id userName email bio avatarUrl(width: 200) }
       }
     `, {
         onCompleted: (data) => {

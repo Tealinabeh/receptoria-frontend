@@ -7,7 +7,7 @@ const GET_RECIPE_OF_THE_DAY = gql`
     dailyRecipe {
       id
       title
-      imageUrl
+      imageUrl(width: 1200)
       timeToCook
       averageRating
       difficulty
@@ -41,6 +41,7 @@ export function DailyRecipeSection({ onLoadComplete }) {
       rating={recipeOfTheDay.averageRating}
       difficulty={recipeOfTheDay.difficulty}
       href={`/recipe/${recipeOfTheDay.id}`}
+      isLcp={true}
     />
   ) : (
     <p className="text-center text-gray-500 py-10">Рецепт дня не знайдено.</p>

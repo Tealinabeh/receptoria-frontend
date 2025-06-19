@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
+import { OptimizedPicture } from "../utils/OptimizedPicture.jsx";
 
 function HomeIcon() {
   return (
@@ -49,7 +50,7 @@ export function Header() {
         {isAuthenticated ? (
           <div className="relative" ref={menuRef}>
             <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="flex items-center space-x-2 cursor-pointer">
-              <img
+              <OptimizedPicture
                 src={user?.avatarUrl || '/User.png'}
                 alt="Аватар"
                 className="w-10 h-10 rounded-full object-cover border-2 border-gray-300"

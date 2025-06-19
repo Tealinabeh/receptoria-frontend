@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { gql, useQuery, useMutation } from '@apollo/client';
 import { useAuth } from '../context/AuthContext';
-import { Header } from '../components/Header';
 import { RecipeForm } from '../components/forms/RecipeForm';
 import { DeleteConfirmationModal } from '../components/modals/DeleteConfirmationModal';
 
@@ -12,11 +11,11 @@ const GET_RECIPE_FOR_EDIT = gql`
       id
       title
       description
-      imageUrl
+      imageUrl(width: 400)
       ingredients
       steps {
         description
-        imageUrl
+        imageUrl(width: 400)
         stepNumber
       }
       timeToCook
@@ -107,7 +106,6 @@ export default function RecipeEditPage() {
 
     return (
         <div className="bg-gray-50">
-            <Header />
             <div className="translate-y-10">
                 <div className="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between items-center mb-10">

@@ -14,7 +14,7 @@ const GET_USER_PROFILE = gql`
     userById(id: $userId) {
       id
       userName
-      avatarUrl
+      avatarUrl(width: 600)
       bio
       recipeCount
       registrationDate
@@ -28,7 +28,7 @@ const GET_FAVORITE_RECIPES = gql`
           items { 
             id, 
             title, 
-            imageUrl, 
+            imageUrl(width: 600), 
             averageRating, 
             difficulty, 
             timeToCook, 
@@ -36,7 +36,7 @@ const GET_FAVORITE_RECIPES = gql`
             author { 
               id, 
               userName, 
-              avatarUrl
+              avatarUrl(width: 200)
             } 
           }
         totalCount
@@ -51,7 +51,7 @@ const GET_USER_CREATED_RECIPES = gql`
       items { 
         id, 
         title, 
-        imageUrl, 
+        imageUrl(width: 600), 
         averageRating, 
         difficulty, 
         timeToCook, 
@@ -59,7 +59,7 @@ const GET_USER_CREATED_RECIPES = gql`
         author { 
           id, 
           userName, 
-          avatarUrl
+          avatarUrl(width: 200)
         } 
       }
       totalCount
