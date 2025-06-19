@@ -14,8 +14,8 @@ export function DailyRecipe({ image, title, time, rating, difficulty, href, isLc
         isLcp={isLcp}
       />
       <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-black/10 to-60% md:from-black/60 md:to-black/15 md:to-30% flex flex-col justify-end p-4 text-white">
-        <div className="mb-52 translate-y-14">
-          <h1 className="text-5xl font-semibold">Рецепт дня</h1>
+        <div className="mb-52 translate-y-16">
+          <h1 className="text-5xl mb-3 font-semibold">Рецепт дня</h1>
           <Rating rating={rating} />
         </div>
         <DifficultyBadge difficulty={difficulty} />
