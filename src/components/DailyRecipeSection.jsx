@@ -1,7 +1,7 @@
 import { gql, useQuery } from "@apollo/client";
 import { DailyRecipe } from "./DailyRecipe.jsx";
 import { DailyRecipeSkeleton } from "./placeholders/DailyRecipeSkeleton.jsx";
-import { useBreakpoint } from '../hooks/useBreakpoint';
+import { useBreakpoint } from '../hooks/useBreakpoint.jsx';
 
 const GET_RECIPE_OF_THE_DAY = gql`
   query GetDailyRecipe($imageWidth: Int!) {
